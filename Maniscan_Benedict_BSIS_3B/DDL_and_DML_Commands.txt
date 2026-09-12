@@ -1,0 +1,125 @@
+<--- DATA DEFINITION LANGUAGE (DDL)--->
+
+
+CREATE DATABASE bsis3b;
+
+CREATE TABLE employee_information(
+	id INT PRIMARY KEY,
+	EmployeeID VARCHAR(50),
+	FirstName VARCHAR(50),
+	LastName VARCHAR(50),
+	Gender VARCHAR(50),
+	BirthDate DATE(50),
+	ContactNo VARCHAR(50),
+	PositionID VARCHAR(50),
+	DepartmentID VARCHAR(50)
+);
+
+CREATE TABLE Department (
+	id INT PRIMARY KEY,
+	DepartmentID VARCHAR(50),
+	DepartmentName VARCHAR(50),
+	Location VARCHAR(50)
+);
+
+CREATE TABLE Position_Table (
+	id INT PRIMARY KEY,
+	PositionID VARCHAR(50),
+	JobTitle VARCHAR(50),
+	Salary INT(50),
+	JobDescription VARCHAR(50)
+);
+
+CREATE TABLE Attendance_Table (
+	id INT PRIMARY KEY,
+	AttendanceID VARCHAR(50),
+	EmployeeID VARCHAR (50),
+	Date DATE,
+	Timein TIME,
+	TimeOut TIME,
+	Status VARCHAR(50)
+);
+
+CREATE TABLE payroll_table (
+	id INT PRIMARY KEY,
+	PayrollID VARCHAR(50),
+	EmployeeID VARCHAR (50),
+	PayPertiod Date,
+	BasicSalary INT(50),
+	Deduction INT(50),
+	NetSalary INT(50)
+);
+
+
+ALTER TABLE employee_information ADD Email VARCHAR(100);
+
+ALTER TABLE employee_information
+MODIFY Email VARCHAR(255);
+
+TRUNCATE employee_information;
+
+DROP DATABASE bsis3b;
+
+
+
+<--- DATA MANIPULATION LANGUAGE (DML) --->
+
+INSERT INTO employee_information(
+	id, EmployeeID, FirstName, LastName, Gender,
+	BirthDate, ContactNo, PositionID, DepartmentID)
+VALUES 
+	('1', 'E001', 'Juan', 'Dela Cruz', 'Male', '1998-05-10', '09171234567', 'P001', 'D001'),
+	('2', 'E002', 'Maria', 'Santos', 'Female', '1999-08-20', '09181234568', 'P002', 'D002'),
+	('3', 'E003', 'Carlo', 'Reyes', 'Male', '1997-12-01', '09191234569', 'P003', 'D003'),
+	('4', 'E004', 'Ana', 'Garcia', 'Female', '2000-03-15', '09192345670', 'P004', 'D004'),
+	('5', 'E005', 'Mark', 'Ramos', 'Male', '1996-09-08', '09193456781', 'P005', 'D005');
+
+
+INSERT INTO department(
+	id, DepartmentID, DepartmentName, Location)
+VALUES 
+	('1', 'D001', 'Information Technology', 'Main Office'),
+	('2', 'D002', 'Human Resources', 'Main Office'),
+	('3', 'D003', 'Accounting', 'Main Office'),
+	('4', 'D004', 'Sales', 'Main Office'),
+	('5', 'D005', 'Marketing', 'Main Office');
+
+
+INSERT INTO position_table(
+	id, PositionID, JobTitle, Salary, JobDescription)
+VALUES 
+	('1', 'P001', 'IT Support', '25000', 'Provide technical support'),
+	('2', 'P002', 'HR officer', '28000', 'Manages employee records'),
+	('3', 'P003', 'System Administrator', '35000', 'Maintian IT Systems'),
+	('4', 'P004', 'Accountant', '30000', 'Handles financial records'),
+	('5', 'P005', 'Sales Representative', '22000', 'Promotes and sells products');
+
+
+INSERT INTO attendance_table(
+	id, AttendanceID, EmployeeID, Date, Timein, TimeOut, Status)
+VALUES 
+	('1', 'A001', 'E001', '2026-07-01', '8:00', '5:00', 'Present'),
+	('2', 'A002', 'E002', '2026-07-01', '8:10', '5:00', 'Late'),
+	('3', 'A003', 'E003', '2026-07-01', '8:00', '5:00', 'Present'),
+	('4', 'A004', 'E004', '2026-07-01', '8:20', '5:00', 'Late'),
+	('5', 'A005', 'E005', '2026-07-01', '8:00', '5:00', 'Present');
+
+
+INSERT INTO payroll_table (
+	id, PayrollID, EmployeeID, PayPeriod, BasicSalary, Deduction, NetSalary)
+VALUES 
+	('1', 'PR001', 'E001', '2026-07-01', '25000', '1500', '23500'),
+	('2', 'PR002', 'E002', '2026-07-01', '28000', '2000', '26000'),
+	('3', 'PR003', 'E003', '2026-07-01', '35000', '2500', '32500'),
+	('4', 'PR004', 'E004', '2026-07-01', '30000', '1800', '28000'),
+	('5', 'PR005', 'E005', '2026-07-01', '22000', '1220', '20800');
+
+
+SELECT * FROM payroll_table
+WHERE PayPeriod = '2026-08-02';
+
+
+UPDATE payroll_table SET Deduction = '1200'
+WHERE id = '5';
+
+DELETE FROM employee_information WHERE BirthDate= '1998-05-10';
